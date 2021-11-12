@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Policies;
+
+use App\Models\{{$upperName}};
+use App\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
+
+class {{$upperName}}Policy
+{
+    use HandlesAuthorization;
+
+    /**
+     * Create a new policy instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * @param User $user
+     * @param {{$upperName}} ${{$lowerName}}
+     *
+     * @return bool
+     */
+    public function own(User $user, {{$upperName}} ${{$lowerName}}): bool
+    {
+        return ${{$lowerName}}->user_id == $user->id;
+    }
+}

@@ -1,0 +1,34 @@
+<?php
+
+namespace App\ModelFilters\Admin;
+
+use Carbon\Carbon;
+use EloquentFilter\ModelFilter;
+
+class {{$upperName}}Filter extends ModelFilter
+{
+
+    /**
+     * 搜索
+     * @return {{$upperName}}Filter
+     */
+    public function user($value)
+    {
+        $this->where('field',$value);
+    }
+
+    /**
+     * 搜索 创建时间
+     *
+     * @param $time
+     *
+     * @return {{$upperName}}Filter
+     */
+    public function createdAt($time)
+    {
+        $time = is_array($time) ? $time : explode(',', $time);
+        $start = Carbon::parse($time[0])->format('Y-m-d 00:00:00');
+        $end = Carbon::parse($time[1])->format('Y-m-d 23:59:59');
+        return $this->whereBetween('created_at', [$start, $end]);
+    }
+}

@@ -1,0 +1,65 @@
+<?php
+
+namespace App\Services;
+
+use App\Models\{{$upperName}};
+use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use App\ModelFilters\Home\{{$upperName}}Filter as {{$upperName}}FilterUser;
+use App\ModelFilters\Admin\{{$upperName}}Filter as {{$upperName}}FilterAdmin;
+
+class {{$upperName}}Service
+{
+    /**
+     * @param array $params
+     * @param User $user
+     * @return LengthAwarePaginator
+     */
+    public function userSearch(array $params, User $user): LengthAwarePaginator
+    {
+        return {{$upperName}}::query()
+            ->where('user_id', $user->id)
+            ->filter($params, {{$upperName}}FilterUser::class)
+            ->orderByDesc('id')
+            ->paginate($params['limit'] ?? config('information.limit'));
+    }
+
+
+    /**
+     * @param array $params
+     * @return LengthAwarePaginator
+     */
+    public function adminSearch(array $params): LengthAwarePaginator
+    {
+        return {{$upperName}}::query()
+            ->filter($params, {{$upperName}}FilterAdmin::class)
+            ->orderByDesc('id')
+            ->paginate($params['limit'] ?? config('information.limit'));
+    }
+
+
+    /**
+     * @param array $params
+     * @param User $user
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
+     */
+    public function store(array $params, User $user)
+    {
+        return {{$upperName}}::query()->create([
+            'field' => $params['field'] ?? '',
+        ]);
+    }
+
+    /**
+     * @param {{$upperName}} ${{$lowerName}}
+     * @param array $params
+     * @return bool
+     */
+    public function update({{$upperName}} ${{$lowerName}}, array $params): bool
+    {
+        return ${{$lowerName}}->update([
+            'field' => $params['field'] ?? '',
+        ]);
+    }
+}

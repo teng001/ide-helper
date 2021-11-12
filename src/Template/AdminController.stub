@@ -1,0 +1,62 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Exceptions\ApiException;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\{{$upperName}}Request;
+use App\Models\{{$upperName}};
+use App\Services\{{$upperName}}Service;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+class {{$upperName}}Controller extends Controller
+{
+    /**
+     * @var {{$upperName}}Service
+     */
+    protected ${{$lowerName}}Service;
+
+    /**
+     * {{$upperName}}Controller constructor.
+     * @param {{$upperName}}Service ${{$lowerName}}Service
+     */
+    public function __construct({{$upperName}}Service ${{$lowerName}}Service)
+    {
+        $this->{{$lowerName}}Service = ${{$lowerName}}Service;
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function index(Request $request): JsonResponse
+    {
+        $params = $request->all();
+        $items = $this->{{$lowerName}}Service->adminSearch($params);
+        return $this->table($items->items(), $items->total());
+    }
+
+    /**
+     * @param {{$upperName}} ${{$lowerName}}
+     * @param {{$upperName}}Request $request
+     * @return JsonResponse
+     * @throws ApiException
+     */
+    public function update({{$upperName}} ${{$lowerName}}, {{$upperName}}Request $request): JsonResponse
+    {
+        $data = $request->all();
+        return $this->success('修改成功', $this->{{$lowerName}}Service->update(${{$lowerName}}, $data));
+    }
+
+
+    /**
+     * @param {{$upperName}} ${{$lowerName}}
+     * @return JsonResponse
+     */
+    public function destroy({{$upperName}} ${{$lowerName}}): JsonResponse
+    {
+        ${{$lowerName}}->delete();
+        return $this->success('删除素材成功');
+    }
+}

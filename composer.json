@@ -1,0 +1,30 @@
+{
+    "name": "tengs/ide-helper",
+    "description": "ide helper",
+    "type": "library",
+    "require": {
+        "php": "^7.4"
+    },
+    "require-dev": {
+        "php": "^7.4"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "teng",
+            "email": "624040350@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Tengs\\IdeHelper\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tengs\\IdeHelper\\ServiceProvider"
+            ]
+        }
+    }
+}
